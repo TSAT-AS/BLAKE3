@@ -77,135 +77,183 @@ INLINE uint32x4_t rot7_128(uint32x4_t x) {
  */
 
 INLINE void round_fn4(uint32x4_t v[16], uint32x4_t m[16], size_t r) {
-  v[0] = add_128(v[0], m[(size_t)MSG_SCHEDULE[r][0]]);
-  v[1] = add_128(v[1], m[(size_t)MSG_SCHEDULE[r][2]]);
-  v[2] = add_128(v[2], m[(size_t)MSG_SCHEDULE[r][4]]);
-  v[3] = add_128(v[3], m[(size_t)MSG_SCHEDULE[r][6]]);
-  v[0] = add_128(v[0], v[4]);
-  v[1] = add_128(v[1], v[5]);
-  v[2] = add_128(v[2], v[6]);
-  v[3] = add_128(v[3], v[7]);
-  v[12] = xor_128(v[12], v[0]);
-  v[13] = xor_128(v[13], v[1]);
-  v[14] = xor_128(v[14], v[2]);
-  v[15] = xor_128(v[15], v[3]);
-  v[12] = rot16_128(v[12]);
-  v[13] = rot16_128(v[13]);
-  v[14] = rot16_128(v[14]);
-  v[15] = rot16_128(v[15]);
-  v[8] = add_128(v[8], v[12]);
-  v[9] = add_128(v[9], v[13]);
-  v[10] = add_128(v[10], v[14]);
-  v[11] = add_128(v[11], v[15]);
-  v[4] = xor_128(v[4], v[8]);
-  v[5] = xor_128(v[5], v[9]);
-  v[6] = xor_128(v[6], v[10]);
-  v[7] = xor_128(v[7], v[11]);
-  v[4] = rot12_128(v[4]);
-  v[5] = rot12_128(v[5]);
-  v[6] = rot12_128(v[6]);
-  v[7] = rot12_128(v[7]);
-  v[0] = add_128(v[0], m[(size_t)MSG_SCHEDULE[r][1]]);
-  v[1] = add_128(v[1], m[(size_t)MSG_SCHEDULE[r][3]]);
-  v[2] = add_128(v[2], m[(size_t)MSG_SCHEDULE[r][5]]);
-  v[3] = add_128(v[3], m[(size_t)MSG_SCHEDULE[r][7]]);
-  v[0] = add_128(v[0], v[4]);
-  v[1] = add_128(v[1], v[5]);
-  v[2] = add_128(v[2], v[6]);
-  v[3] = add_128(v[3], v[7]);
-  v[12] = xor_128(v[12], v[0]);
-  v[13] = xor_128(v[13], v[1]);
-  v[14] = xor_128(v[14], v[2]);
-  v[15] = xor_128(v[15], v[3]);
-  v[12] = rot8_128(v[12]);
-  v[13] = rot8_128(v[13]);
-  v[14] = rot8_128(v[14]);
-  v[15] = rot8_128(v[15]);
-  v[8] = add_128(v[8], v[12]);
-  v[9] = add_128(v[9], v[13]);
-  v[10] = add_128(v[10], v[14]);
-  v[11] = add_128(v[11], v[15]);
-  v[4] = xor_128(v[4], v[8]);
-  v[5] = xor_128(v[5], v[9]);
-  v[6] = xor_128(v[6], v[10]);
-  v[7] = xor_128(v[7], v[11]);
-  v[4] = rot7_128(v[4]);
-  v[5] = rot7_128(v[5]);
-  v[6] = rot7_128(v[6]);
-  v[7] = rot7_128(v[7]);
+    // Load message schedule for this round
+    uint32x4_t m0 = m[(size_t)MSG_SCHEDULE[r][0]];
+    uint32x4_t m1 = m[(size_t)MSG_SCHEDULE[r][2]];
+    uint32x4_t m2 = m[(size_t)MSG_SCHEDULE[r][4]];
+    uint32x4_t m3 = m[(size_t)MSG_SCHEDULE[r][6]];
 
-  v[0] = add_128(v[0], m[(size_t)MSG_SCHEDULE[r][8]]);
-  v[1] = add_128(v[1], m[(size_t)MSG_SCHEDULE[r][10]]);
-  v[2] = add_128(v[2], m[(size_t)MSG_SCHEDULE[r][12]]);
-  v[3] = add_128(v[3], m[(size_t)MSG_SCHEDULE[r][14]]);
-  v[0] = add_128(v[0], v[5]);
-  v[1] = add_128(v[1], v[6]);
-  v[2] = add_128(v[2], v[7]);
-  v[3] = add_128(v[3], v[4]);
-  v[15] = xor_128(v[15], v[0]);
-  v[12] = xor_128(v[12], v[1]);
-  v[13] = xor_128(v[13], v[2]);
-  v[14] = xor_128(v[14], v[3]);
-  v[15] = rot16_128(v[15]);
-  v[12] = rot16_128(v[12]);
-  v[13] = rot16_128(v[13]);
-  v[14] = rot16_128(v[14]);
-  v[10] = add_128(v[10], v[15]);
-  v[11] = add_128(v[11], v[12]);
-  v[8] = add_128(v[8], v[13]);
-  v[9] = add_128(v[9], v[14]);
-  v[5] = xor_128(v[5], v[10]);
-  v[6] = xor_128(v[6], v[11]);
-  v[7] = xor_128(v[7], v[8]);
-  v[4] = xor_128(v[4], v[9]);
-  v[5] = rot12_128(v[5]);
-  v[6] = rot12_128(v[6]);
-  v[7] = rot12_128(v[7]);
-  v[4] = rot12_128(v[4]);
-  v[0] = add_128(v[0], m[(size_t)MSG_SCHEDULE[r][9]]);
-  v[1] = add_128(v[1], m[(size_t)MSG_SCHEDULE[r][11]]);
-  v[2] = add_128(v[2], m[(size_t)MSG_SCHEDULE[r][13]]);
-  v[3] = add_128(v[3], m[(size_t)MSG_SCHEDULE[r][15]]);
-  v[0] = add_128(v[0], v[5]);
-  v[1] = add_128(v[1], v[6]);
-  v[2] = add_128(v[2], v[7]);
-  v[3] = add_128(v[3], v[4]);
-  v[15] = xor_128(v[15], v[0]);
-  v[12] = xor_128(v[12], v[1]);
-  v[13] = xor_128(v[13], v[2]);
-  v[14] = xor_128(v[14], v[3]);
-  v[15] = rot8_128(v[15]);
-  v[12] = rot8_128(v[12]);
-  v[13] = rot8_128(v[13]);
-  v[14] = rot8_128(v[14]);
-  v[10] = add_128(v[10], v[15]);
-  v[11] = add_128(v[11], v[12]);
-  v[8] = add_128(v[8], v[13]);
-  v[9] = add_128(v[9], v[14]);
-  v[5] = xor_128(v[5], v[10]);
-  v[6] = xor_128(v[6], v[11]);
-  v[7] = xor_128(v[7], v[8]);
-  v[4] = xor_128(v[4], v[9]);
-  v[5] = rot7_128(v[5]);
-  v[6] = rot7_128(v[6]);
-  v[7] = rot7_128(v[7]);
-  v[4] = rot7_128(v[4]);
+    // First part of the round
+    v[0] = add_128(v[0], m0);
+    v[1] = add_128(v[1], m1);
+    v[2] = add_128(v[2], m2);
+    v[3] = add_128(v[3], m3);
+
+    v[0] = add_128(v[0], v[4]);
+    v[1] = add_128(v[1], v[5]);
+    v[2] = add_128(v[2], v[6]);
+    v[3] = add_128(v[3], v[7]);
+
+    v[12] = xor_128(v[12], v[0]);
+    v[13] = xor_128(v[13], v[1]);
+    v[14] = xor_128(v[14], v[2]);
+    v[15] = xor_128(v[15], v[3]);
+
+    v[12] = rot16_128(v[12]);
+    v[13] = rot16_128(v[13]);
+    v[14] = rot16_128(v[14]);
+    v[15] = rot16_128(v[15]);
+
+    v[8] = add_128(v[8], v[12]);
+    v[9] = add_128(v[9], v[13]);
+    v[10] = add_128(v[10], v[14]);
+    v[11] = add_128(v[11], v[15]);
+
+    v[4] = xor_128(v[4], v[8]);
+    v[5] = xor_128(v[5], v[9]);
+    v[6] = xor_128(v[6], v[10]);
+    v[7] = xor_128(v[7], v[11]);
+
+    v[4] = rot12_128(v[4]);
+    v[5] = rot12_128(v[5]);
+    v[6] = rot12_128(v[6]);
+    v[7] = rot12_128(v[7]);
+
+    // Load next part of message schedule
+    m0 = m[(size_t)MSG_SCHEDULE[r][1]];
+    m1 = m[(size_t)MSG_SCHEDULE[r][3]];
+    m2 = m[(size_t)MSG_SCHEDULE[r][5]];
+    m3 = m[(size_t)MSG_SCHEDULE[r][7]];
+
+    // Second part of the round
+    v[0] = add_128(v[0], m0);
+    v[1] = add_128(v[1], m1);
+    v[2] = add_128(v[2], m2);
+    v[3] = add_128(v[3], m3);
+
+    v[0] = add_128(v[0], v[4]);
+    v[1] = add_128(v[1], v[5]);
+    v[2] = add_128(v[2], v[6]);
+    v[3] = add_128(v[3], v[7]);
+
+    v[12] = xor_128(v[12], v[0]);
+    v[13] = xor_128(v[13], v[1]);
+    v[14] = xor_128(v[14], v[2]);
+    v[15] = xor_128(v[15], v[3]);
+
+    v[12] = rot8_128(v[12]);
+    v[13] = rot8_128(v[13]);
+    v[14] = rot8_128(v[14]);
+    v[15] = rot8_128(v[15]);
+
+    v[8] = add_128(v[8], v[12]);
+    v[9] = add_128(v[9], v[13]);
+    v[10] = add_128(v[10], v[14]);
+    v[11] = add_128(v[11], v[15]);
+
+    v[4] = xor_128(v[4], v[8]);
+    v[5] = xor_128(v[5], v[9]);
+    v[6] = xor_128(v[6], v[10]);
+    v[7] = xor_128(v[7], v[11]);
+
+    v[4] = rot7_128(v[4]);
+    v[5] = rot7_128(v[5]);
+    v[6] = rot7_128(v[6]);
+    v[7] = rot7_128(v[7]);
+
+    // Load next part of message schedule
+    m0 = m[(size_t)MSG_SCHEDULE[r][8]];
+    m1 = m[(size_t)MSG_SCHEDULE[r][10]];
+    m2 = m[(size_t)MSG_SCHEDULE[r][12]];
+    m3 = m[(size_t)MSG_SCHEDULE[r][14]];
+
+    // Third part of the round
+    v[0] = add_128(v[0], m0);
+    v[1] = add_128(v[1], m1);
+    v[2] = add_128(v[2], m2);
+    v[3] = add_128(v[3], m3);
+
+    v[0] = add_128(v[0], v[5]);
+    v[1] = add_128(v[1], v[6]);
+    v[2] = add_128(v[2], v[7]);
+    v[3] = add_128(v[3], v[4]);
+
+    v[15] = xor_128(v[15], v[0]);
+    v[12] = xor_128(v[12], v[1]);
+    v[13] = xor_128(v[13], v[2]);
+    v[14] = xor_128(v[14], v[3]);
+
+    v[15] = rot16_128(v[15]);
+    v[12] = rot16_128(v[12]);
+    v[13] = rot16_128(v[13]);
+    v[14] = rot16_128(v[14]);
+
+    v[10] = add_128(v[10], v[15]);
+    v[11] = add_128(v[11], v[12]);
+    v[8] = add_128(v[8], v[13]);
+    v[9] = add_128(v[9], v[14]);
+
+    v[5] = xor_128(v[5], v[10]);
+    v[6] = xor_128(v[6], v[11]);
+    v[7] = xor_128(v[7], v[8]);
+    v[4] = xor_128(v[4], v[9]);
+
+    v[5] = rot12_128(v[5]);
+    v[6] = rot12_128(v[6]);
+    v[7] = rot12_128(v[7]);
+    v[4] = rot12_128(v[4]);
+
+    // Load final part of message schedule
+    m0 = m[(size_t)MSG_SCHEDULE[r][9]];
+    m1 = m[(size_t)MSG_SCHEDULE[r][11]];
+    m2 = m[(size_t)MSG_SCHEDULE[r][13]];
+    m3 = m[(size_t)MSG_SCHEDULE[r][15]];
+
+    // Fourth part of the round
+    v[0] = add_128(v[0], m0);
+    v[1] = add_128(v[1], m1);
+    v[2] = add_128(v[2], m2);
+    v[3] = add_128(v[3], m3);
+
+    v[0] = add_128(v[0], v[5]);
+    v[1] = add_128(v[1], v[6]);
+    v[2] = add_128(v[2], v[7]);
+    v[3] = add_128(v[3], v[4]);
+
+    v[15] = xor_128(v[15], v[0]);
+    v[12] = xor_128(v[12], v[1]);
+    v[13] = xor_128(v[13], v[2]);
+    v[14] = xor_128(v[14], v[3]);
+
+    v[15] = rot8_128(v[15]);
+    v[12] = rot8_128(v[12]);
+    v[13] = rot8_128(v[13]);
+    v[14] = rot8_128(v[14]);
+
+    v[10] = add_128(v[10], v[15]);
+    v[11] = add_128(v[11], v[12]);
+    v[8] = add_128(v[8], v[13]);
+    v[9] = add_128(v[9], v[14]);
+
+    v[5] = xor_128(v[5], v[10]);
+    v[6] = xor_128(v[6], v[11]);
+    v[7] = xor_128(v[7], v[8]);
+    v[4] = xor_128(v[4], v[9]);
+
+    v[5] = rot7_128(v[5]);
+    v[6] = rot7_128(v[6]);
+    v[7] = rot7_128(v[7]);
+    v[4] = rot7_128(v[4]);
 }
 
 INLINE void transpose_vecs_128(uint32x4_t vecs[4]) {
-  // Individually transpose the four 2x2 sub-matrices in each corner.
-  uint32x4x2_t rows01 = vtrnq_u32(vecs[0], vecs[1]);
-  uint32x4x2_t rows23 = vtrnq_u32(vecs[2], vecs[3]);
+    uint32x4x2_t rows01 = vtrnq_u32(vecs[0], vecs[1]);
+    uint32x4x2_t rows23 = vtrnq_u32(vecs[2], vecs[3]);
 
-  // Swap the top-right and bottom-left 2x2s (which just got transposed).
-  vecs[0] =
-      vcombine_u32(vget_low_u32(rows01.val[0]), vget_low_u32(rows23.val[0]));
-  vecs[1] =
-      vcombine_u32(vget_low_u32(rows01.val[1]), vget_low_u32(rows23.val[1]));
-  vecs[2] =
-      vcombine_u32(vget_high_u32(rows01.val[0]), vget_high_u32(rows23.val[0]));
-  vecs[3] =
-      vcombine_u32(vget_high_u32(rows01.val[1]), vget_high_u32(rows23.val[1]));
+    vecs[0] = vcombine_u32(vget_low_u32(rows01.val[0]), vget_low_u32(rows23.val[0]));
+    vecs[1] = vcombine_u32(vget_low_u32(rows01.val[1]), vget_low_u32(rows23.val[1]));
+    vecs[2] = vcombine_u32(vget_high_u32(rows01.val[0]), vget_high_u32(rows23.val[0]));
+    vecs[3] = vcombine_u32(vget_high_u32(rows01.val[1]), vget_high_u32(rows23.val[1]));
 }
 
 INLINE void transpose_msg_vecs4(const uint8_t *const *inputs,
@@ -257,6 +305,13 @@ void blake3_hash4_neon(const uint8_t *const *inputs, size_t blocks,
   uint8_t block_flags = flags | flags_start;
 
   for (size_t block = 0; block < blocks; block++) {
+        // Prefetch next block
+    if (block + 1 < blocks) {
+        __builtin_prefetch(&inputs[0][(block + 1) * BLAKE3_BLOCK_LEN], 0, 0);
+        __builtin_prefetch(&inputs[1][(block + 1) * BLAKE3_BLOCK_LEN], 0, 0);
+        __builtin_prefetch(&inputs[2][(block + 1) * BLAKE3_BLOCK_LEN], 0, 0);
+        __builtin_prefetch(&inputs[3][(block + 1) * BLAKE3_BLOCK_LEN], 0, 0);
+    }
     if (block + 1 == blocks) {
       block_flags |= flags_end;
     }
@@ -315,6 +370,42 @@ void blake3_compress_in_place_portable(uint32_t cv[8],
                                        uint8_t block_len, uint64_t counter,
                                        uint8_t flags);
 
+void blake3_compress_in_place_neon(uint32_t cv[8],
+                                   const uint8_t block[BLAKE3_BLOCK_LEN],
+                                   uint8_t block_len, uint64_t counter,
+                                   uint8_t flags) {
+  uint32x4_t v[16];
+  uint32x4_t m[16];
+
+  // Load the compression vector
+  v[0] = vld1q_u32(&cv[0]);
+  v[1] = vld1q_u32(&cv[4]);
+
+  // Load the IV
+  v[2] = vld1q_u32(&IV[0]);
+  v[3] = vld1q_u32(&IV[4]);
+
+  // Load counter and flags
+  v[4] = vsetq_lane_u32(counter_low(counter), v[4], 0);
+  v[4] = vsetq_lane_u32(counter_high(counter), v[4], 1);
+  v[4] = vsetq_lane_u32(block_len, v[4], 2);
+  v[4] = vsetq_lane_u32(flags, v[4], 3);
+
+  // Load message block
+  for (int i = 0; i < 4; i++) {
+      m[i] = vld1q_u32((const uint32_t*)&block[i * 16]);
+  }
+
+  // Perform rounds
+  for (int r = 0; r < 7; r++) {
+      round_fn4(v, m, r);
+  }
+
+  // Combine the result
+  vst1q_u32(&cv[0], veorq_u32(v[0], v[2]));
+  vst1q_u32(&cv[4], veorq_u32(v[1], v[3]));
+}
+
 INLINE void hash_one_neon(const uint8_t *input, size_t blocks,
                           const uint32_t key[8], uint64_t counter,
                           uint8_t flags, uint8_t flags_start, uint8_t flags_end,
@@ -329,7 +420,7 @@ INLINE void hash_one_neon(const uint8_t *input, size_t blocks,
     // TODO: Implement compress_neon. However note that according to
     // https://github.com/BLAKE2/BLAKE2/commit/7965d3e6e1b4193438b8d3a656787587d2579227,
     // compress_neon might not be any faster than compress_portable.
-    blake3_compress_in_place_portable(cv, input, BLAKE3_BLOCK_LEN, counter,
+    blake3_compress_in_place_neon(cv, input, BLAKE3_BLOCK_LEN, counter,
                                       block_flags);
     input = &input[BLAKE3_BLOCK_LEN];
     blocks -= 1;

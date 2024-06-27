@@ -205,6 +205,11 @@ void blake3_compress_in_place_portable(uint32_t cv[8],
                                        uint8_t block_len, uint64_t counter,
                                        uint8_t flags);
 
+void blake3_compress_in_place_neon(uint32_t cv[8],
+                                   const uint8_t block[BLAKE3_BLOCK_LEN],
+                                   uint8_t block_len, uint64_t counter,
+                                   uint8_t flags);
+
 void blake3_compress_xof_portable(const uint32_t cv[8],
                                   const uint8_t block[BLAKE3_BLOCK_LEN],
                                   uint8_t block_len, uint64_t counter,
